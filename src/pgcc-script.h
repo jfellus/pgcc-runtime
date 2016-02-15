@@ -10,16 +10,17 @@ void deinit();
 static bool __stop = false;
 
 void on_stop (int signo) {
-  __stop = true;
+	__stop = true;
 }
 
-void main(int argc, char** argv) {
-  signal(SIGINT, on_stop);
-  init();
-  try {
-    while(!__stop) {
-      process();
-    }
-  } catch(e) {  }
-  deinit();
+int main(int argc, char** argv) {
+	signal(SIGINT, on_stop);
+	init();
+	try {
+		while(!__stop) {
+			process();
+		}
+	} catch(...) {  }
+	deinit();
+	return 0;
 }

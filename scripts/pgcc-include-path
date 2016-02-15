@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+if [ -n "$1" ]; then
+	if [ "$1" == "-d" ]; then
+		mkdir -p ~/.pgcc/includes
+		rm -f ~/.pgcc/includes/$2
+	else
+		mkdir -p ~/.pgcc/includes
+		echo `readlink -f $2` > ~/.pgcc/includes/$1
+	fi
+else
+	cat ~/.pgcc/includes/* 2>/dev/null | tr "\n" " "
+	cat ~/.pgcc/modules/* 2>/dev/null | sed -e "s|$|/src|" | tr "\n" " "
+	echo
+fi

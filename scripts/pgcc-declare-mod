@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+if [ -n "$1" ]; then
+	if [ "$1" == "-d" ]; then
+		mkdir -p ~/.pgcc/modules
+		rm -f ~/.pgcc/modules/$2
+	else
+		mkdir -p ~/.pgcc/modules
+		if [ -n "$2" ]; then
+			echo `readlink -f $2` > ~/.pgcc/modules/$1
+		else
+			echo `readlink -f .` > ~/.pgcc/modules/$1
+		fi
+	fi
+else
+	cat ~/.pgcc/modules/* | tr "\n" " "
+	echo
+fi
